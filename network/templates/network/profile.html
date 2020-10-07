@@ -7,7 +7,9 @@
             <div>
                 <div>Following: <span id="following-count">{{ user_data.following|length }}</span></div>
                 <div>Followers: <span id="followers-count">{{ user_data.followers|length }}</span></div>
+                {% if not user.id == user_data.id %}
                 <button id="follow-button" class="btn btn-primary">Follow</button>
+                {% endif %}
             </div>
         {% else %}
         <h2>Profile Page</h2>

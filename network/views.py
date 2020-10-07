@@ -14,7 +14,6 @@ from .models import User, Post
 def index(request):
     if request.user.is_authenticated:
         posts = Post.objects.all().order_by('-timestamp')
-        print(posts[0].author.username)
         paginator = Paginator(posts, 10)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
