@@ -2,10 +2,8 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log("Page loaded");
     // load default index page
     document.querySelector('#submit_post').addEventListener("click", create_post);
-
-
-
 });
+
 
 // Create new post
 function create_post() {
@@ -18,7 +16,6 @@ body = document.querySelector("#post-body").value;
     })
 
 }
-
 
 
 // Update existing post
@@ -70,6 +67,35 @@ function switch_view(post_id) {
         document.querySelector(`#p-body-${post_id}`).style.display = "block";
         document.querySelector(`#post-body-${post_id}`).style.display = 'none';
         document.querySelector(`#save-button-${post_id}`).style.display = 'none';
-        document.querySelector(`#card-body`).style = "padding: 20px;";
         document.querySelector(`#p-body-${post_id}`).innerHTML = body_value;
+        document.querySelector(`#p-body-${post_id}`).style = "padding: 20px;";
+}
+
+
+// ---------------------------- REFRESH LIKE DISPLAY AFTER ADD REMOVE --------------------------------------------------
+function likes(post_id) {
+    console.log("Like/Unlike toggler");
+            fetch(`/post/${post_id}`,{
+                method: 'PUT'
+
+    });
+
+
+    const div_post = document.querySelector(`#post-${post_id}`);
+    const like_button_color = div_post.querySelector('#like-button').style.color;
+    if (like_button_color === "red") {
+        div_post.querySelector('#like-button').style.color = "darkgray";
+        div_post.querySelector('#like-button').setAttribute('title', 'like');
+        var count = div_post.querySelector("#like-counter");
+        var update_count = parseInt(count.innerHTML) - 1;
+        count.innerHTML = update_count.toString();
+    }
+    else {
+        div_post.querySelector('#like-button').style.color = "red";
+        div_post.querySelector('#like-button').setAttribute('title', 'unlike');
+        var count = div_post.querySelector("#like-counter");
+        var update_count = parseInt(count.innerHTML) + 1;
+        count.innerHTML = update_count.toString();
+    }
+
 }

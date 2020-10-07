@@ -1,4 +1,7 @@
 <div id="posts">
+    <script>
+        let post_div = '';
+    </script>
     {% for post in page_obj %}
      <div style="margin-top: 20px;" id="post-{{ post.id }}">
         <div class="card">
@@ -20,16 +23,26 @@
                     {% else %}
                         <i style="color: red;" id="like-button" class="fa fa-heart" title="unlike"></i>
                     {% endif %}
+
+                    <script>
+                        post_div = document.querySelector("#post-{{ post.id }}");
+                        post_div.querySelector('#like-button').addEventListener('click', () => {
+                            likes({{ post.id }});
+                        });
+                    </script>
+
                     <span id="like-counter">{{ post.serialize.likes|length }}</span>
                     {%  if user.id == post.author.id %}
                         <span id="separator">&nbsp;|&nbsp;</span>
                         <i id="edit-button" class="fa fa-edit fa-lg" title="Edit post"></i>
                         <script>
 
-                        var div = document.querySelector("#post-{{ post.id }}");
-                        div.querySelector('#edit-button').addEventListener('click', () => {
+                        post_div = document.querySelector("#post-{{ post.id }}");
+                        post_div.querySelector('#edit-button').addEventListener('click', () => {
                         update_post({{ post.id }});
                             });
+
+
 
                         </script>
                         <button id="save-button-{{ post.id }}" style="display: none;" class="btn btn-primary btn-sm pull-right">Save</button>
