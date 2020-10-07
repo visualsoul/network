@@ -1,0 +1,47 @@
+#post-container {
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
+
+body {
+    padding-bottom: 30px;
+}
+
+h2 {
+    margin-top: 10px;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    height: 100px;
+    resize: none;
+    border-radius: 0;
+}
+
+#profile_view {
+    display: none;
+}
+
+#posts_view {
+    display: none;
+}
+
+#following_view {
+    display: none;
+}
+
+i.fa-heart {
+    color: darkgray;
+}
+
+i:hover {
+    cursor: pointer;
+}
+
+#separator {
+    font-size: 24px;
+    font-weight: lighter;
+    color: darkgray;
+}

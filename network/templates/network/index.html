@@ -1,5 +1,91 @@
 {% extends "network/layout.html" %}
 
 {% block body %}
-    TODO
+    {% if user.is_authenticated %}
+
+        <h2>All Posts</h2>
+    <!-- Create Post Form -->
+            <form id="create-post">
+
+                <div class="card">
+                    <div class="card-header">
+                        <label for="post-body"><strong>Create Post</strong></label>
+                    </div>
+                <div style="padding: 0;" class="card-body">
+                <textarea class="form-control" id="post-body" rows="3"></textarea>
+                </div>
+                  <div style="padding-top: 5px; padding-bottom: 5px;" class="card-footer">
+                    <div style="text-align: right;">
+                        <input style="margin-top: 5px; margin-bottom: 5px;" id="submit_post" type="submit" value="Post" class="btn btn-primary"/>
+                    </div>
+                  </div>
+                </div>
+            </form>
+    <!-- End Of Create Post Form -->
+
+    <!-- POSTS -->
+    <div id="posts">
+    {% for post in page_obj %}
+     <div style="margin-top: 20px;" id="post-{{ post.id }}">
+        <div class="card">
+            <div class="card-header">
+                <a style="color: darkslategray;" href="#">
+                   <strong>{{ post.author.username }}</strong>
+                </a>
+                <small class="text-muted"><em>Posted On</em>: {{ post.timestamp }}</small>
+            </div>
+            <div id="card-body" class="card-body">
+                <textarea style="display: none;" name="post-body" id="post-body-{{ post.id }}"></textarea>
+                <p id="p-body-{{ post.id }}" class="card-text">{{ post.body }}</p>
+            </div>
+            <div id="card-footer-{{ post.id }}" style="padding-top: 0px; padding-bottom: 5px;" class="card-footer">
+                <p class="card-text">
+                <small>
+                    {% if user.id not in post.serialize.likes  %}
+                        <i id="like-button" class="fa fa-heart" title="like"></i>
+                    {% else %}
+                        <i style="color: red;" id="like-button" class="fa fa-heart" title="unlike"></i>
+                    {% endif %}
+                    <span id="like-counter">{{ post.serialize.likes|length }}</span>
+                    {%  if user.id == post.author.id %}
+                        <span id="separator">&nbsp;|&nbsp;</span>
+                        <i id="edit-button" class="fa fa-edit fa-lg" title="Edit post"></i>
+                        <button id="save-button-{{ post.id }}" style="display: none;" class="btn btn-primary btn-sm pull-right">Save</button>
+                    {% endif %}
+                </small>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    {% endfor %}
+
+    </div>
+
+
+    <!-- PAGINATION -->
+    <div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+    </div>
+    <!-- END PAGINATION -->
+
+
+    {% else %}
+    <p>Please login to see this page.</p>
+    {% endif %}
+
 {% endblock %}

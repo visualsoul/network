@@ -12,8 +12,17 @@ from .models import User, Post
 
 
 def index(request):
-    return render(request, "network/index.html")
+    if request.user.is_authenticated:
+        posts = Post.objects.all().order_by('-timestamp')
+        print(posts[0].author.username)
+        paginator = Paginator(posts, 10)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        return render(request, "network/index.html", {"page_obj": page_obj})
+    return HttpResponseRedirect(reverse("login"))
 
+
+# --------------------------------- LOGIN / REGISTER / LOGOUT ----------------------------------------------------------
 
 def login_view(request):
     if request.method == "POST":
