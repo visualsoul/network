@@ -1,0 +1,27 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+    {% if user.is_authenticated %}
+        {% if user_data %}
+        <h2>{{ user_data.username }}'s Profile</h2>
+            <div>
+                <div>Following: <span id="following-count">{{ user_data.following|length }}</span></div>
+                <div>Followers: <span id="followers-count">{{ user_data.followers|length }}</span></div>
+                <button id="follow-button" class="btn btn-primary">Follow</button>
+            </div>
+        {% else %}
+        <h2>Profile Page</h2>
+        {% endif %}
+    <!-- USER PROFILE INFORMATION -->
+
+    <!-- END USER PROFILE INFORMATION SECTION -->
+
+    <!-- POSTS -->
+    {% include 'network/posts.html' %}
+
+    <!-- END POST SECTION -->
+
+    {% else %}
+        <p>Please login to see this page.</p>
+    {% endif %}
+{% endblock %}

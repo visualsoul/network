@@ -1,0 +1,15 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+    {% if user.is_authenticated %}
+        <h2>Following</h2>
+
+    <!-- POSTS -->
+    {% include 'network/posts.html' %}
+
+    <!-- END POST SECTION -->
+
+    {% else %}
+        <p>Please login to see this page.</p>
+    {% endif %}
+{% endblock %}

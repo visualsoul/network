@@ -22,6 +22,45 @@ def index(request):
     return HttpResponseRedirect(reverse("login"))
 
 
+@login_required
+def following(request):
+    if request.user.is_authenticated:
+        posts = None
+        message = dict()
+        try:
+            posts = Post.objects.filter(author__followers=request.user.id).order_by('-timestamp')
+        except Post.DoesNotExist:
+            message["result"] = "Couldn't find any posts."
+        paginator = Paginator(posts, 10)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        return render(request, "network/following.html", {"page_obj": page_obj})
+    return HttpResponseRedirect(reverse("login"))
+
+
+@login_required
+def profile(request, user_id):
+    if request.user.is_authenticated:
+        posts = None
+        user_data = None
+        message = dict()
+        try:
+            user_data = User.objects.get(id=user_id).serialize()
+        except User.DoesNotExist:
+            message["error"] = "User does not exist."
+
+        try:
+            posts = Post.objects.filter(author_id=user_id).order_by('-timestamp')
+        except Post.DoesNotExist:
+            message["result"] = "Couldn't find any posts."
+
+        paginator = Paginator(posts, 10)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        return render(request, "network/profile.html", {"page_obj": page_obj, "user_data": user_data})
+    return HttpResponseRedirect(reverse("login"))
+
+
 # --------------------------------- LOGIN / REGISTER / LOGOUT ----------------------------------------------------------
 
 def login_view(request):
