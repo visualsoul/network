@@ -60,6 +60,83 @@ def profile(request, user_id):
     return HttpResponseRedirect(reverse("login"))
 
 
+# Create new post
+@csrf_exempt
+@login_required
+def create(request):
+    if request.method != "POST":
+        return JsonResponse({"error": "POST request required."}, status=400)
+
+    data = json.loads(request.body)
+    print(data)
+    body = data.get("Body", "")
+
+    post = Post(author=request.user, body=body)
+    post.save()
+
+    return JsonResponse({"message": "Post submitted successfully."}, status=201)
+
+# Edit existing post
+@csrf_exempt
+@login_required
+def update(request, post_id):
+    print('Edit post')
+    # Composing a new email must be via POST
+    if request.method != "PUT":
+        return JsonResponse({"error": "PUT request required."}, status=400)
+
+    post = Post.objects.get(id=post_id)
+    # Make sure that user id is same as the post author id
+    if request.user.id == post.author.id:
+
+        # Check recipient emails
+        data = json.loads(request.body)
+        print(data)
+
+        body = data.get("Body", "")
+
+        post.body = body
+        post.save()
+        print(post)
+
+        return JsonResponse({"message": "Post updated successfully."}, status=201)
+    else:
+        return JsonResponse({"error": "Not authorized to edit this post."})
+
+
+# Get post by id
+@csrf_exempt
+@login_required
+def post(request, post_id):
+
+    # Query for request post
+    try:
+        post_data = Post.objects.get(id=int(post_id))
+    except Post.DoesNotExist:
+        return JsonResponse({"error": "Post not found."}, status=404)
+
+    # Return content of the post
+    if request.method == 'GET' and post_data is not None:
+        return JsonResponse(post_data.serialize())
+
+
+    # Add or Remove Like
+    elif request.method == 'PUT' and post_data is not None:
+        if post_data.likes.filter(id=request.user.id).exists():
+            # Remove Like
+            post_data.likes.remove(request.user.id)
+        else:
+            # Add Like
+            post_data.likes.add(request.user.id)
+        post_data.save()
+        return HttpResponse(status=204)
+
+
+    # post must be via GET, PUT
+    else:
+        return JsonResponse({
+            "error": "Invalid request."
+        }, status=400)
 # --------------------------------- LOGIN / REGISTER / LOGOUT ----------------------------------------------------------
 
 def login_view(request):

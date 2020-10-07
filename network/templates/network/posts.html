@@ -24,6 +24,14 @@
                     {%  if user.id == post.author.id %}
                         <span id="separator">&nbsp;|&nbsp;</span>
                         <i id="edit-button" class="fa fa-edit fa-lg" title="Edit post"></i>
+                        <script>
+
+                        var div = document.querySelector("#post-{{ post.id }}");
+                        div.querySelector('#edit-button').addEventListener('click', () => {
+                        update_post({{ post.id }});
+                            });
+
+                        </script>
                         <button id="save-button-{{ post.id }}" style="display: none;" class="btn btn-primary btn-sm pull-right">Save</button>
                     {% endif %}
                 </small>

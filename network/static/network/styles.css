@@ -45,3 +45,7 @@ i:hover {
     font-weight: lighter;
     color: darkgray;
 }
+
+button[id^='save-button-'] {
+    margin-top: 5px;
+}
