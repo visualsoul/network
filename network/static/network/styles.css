@@ -50,7 +50,3 @@ button[id^='save-button-'] {
     margin-top: 5px;
 }
 
-div[id^='post-']:first-of-type {
-    background-color: orange;
-    padding-bottom: 100px;
-}

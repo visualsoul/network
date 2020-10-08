@@ -14,7 +14,7 @@ body = document.querySelector("#post-body").value;
             Body: body,
         })
     })
-
+return false;
 }
 
 
