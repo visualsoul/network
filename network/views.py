@@ -137,6 +137,28 @@ def post(request, post_id):
         return JsonResponse({
             "error": "Invalid request."
         }, status=400)
+
+
+@csrf_exempt
+@login_required
+def follow(request, user_id):
+    # Add or Remove user from Following..
+    user_data = User.objects.get(id=request.user.id)
+    if request.method == 'PUT' and user_data is not None:
+        if user_data.following.filter(id=user_id).exists():
+            # Unfollow
+            user_data.following.remove(user_id)
+        else:
+            # Follow
+            user_data.following.add(user_id)
+        user_data.save()
+        return HttpResponse(status=204)
+
+    # post must be via PUT
+    else:
+        return JsonResponse({
+            "error": "PUT request required."
+        }, status=400)
 # --------------------------------- LOGIN / REGISTER / LOGOUT ----------------------------------------------------------
 
 def login_view(request):

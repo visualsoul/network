@@ -99,3 +99,28 @@ function likes(post_id) {
     }
 
 }
+
+
+function follow_toggler(user_id){
+    console.log("Executed Follow toggler for user id: " + user_id);
+    fetch(`/follow/${user_id}`,{
+                method: 'PUT'
+
+    });
+
+    let follow_button = document.querySelector('#follow-button');
+    if (follow_button.innerHTML === "Follow"){
+        document.querySelector('#follow-button').className = 'btn btn-sm btn-danger';
+        document.querySelector('#follow-button').innerHTML = 'Un-Follow';
+        var count = document.querySelector("#followers-count");
+        var update_count = parseInt(count.innerHTML) + 1;
+        count.innerHTML = update_count.toString();
+    }
+    else {
+        document.querySelector('#follow-button').className = 'btn btn-sm btn-primary';
+        document.querySelector('#follow-button').innerHTML = 'Follow';
+        var count = document.querySelector("#followers-count");
+        var update_count = parseInt(count.innerHTML) -1;
+        count.innerHTML = update_count.toString();
+    }
+}
