@@ -1,20 +1,36 @@
 document.addEventListener('DOMContentLoaded', function() {
-    console.log("Page loaded");
+    // console.log("Page loaded");
     // load default index page
+    document.querySelector('#post-body').value = "";
+    document.querySelector('#post-body').addEventListener('keyup', function() {
+        console.log(this.value.length);
+        if (this.value.length > 0) {
+            document.querySelector('#submit_post').className = "btn btn-primary";
+            document.querySelector('#submit_post').removeAttribute('disabled');
+        }
+        else {
+            document.querySelector('#submit_post').className = "btn btn-primary";
+            document.querySelector('#submit_post').setAttribute('disabled', true);
+        }
+    });
     document.querySelector('#submit_post').addEventListener("click", create_post);
 });
 
 
 // Create new post
 function create_post() {
-body = document.querySelector("#post-body").value;
-    fetch(`create/`, {
-        method: 'POST',
-        body: JSON.stringify({
-            Body: body,
+const body = document.querySelector("#post-body").value;
+    if (body.length > 0) {
+        fetch(`create/`, {
+            method: 'POST',
+            body: JSON.stringify({
+                Body: body,
+            })
         })
-    })
 
+    }
+
+    return false;
 }
 
 

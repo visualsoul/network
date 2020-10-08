@@ -24,6 +24,23 @@ textarea {
     display: none;
 }
 
+#follow-button {
+    margin-top: 10px;
+}
+
+#profile_menu {
+    font-family: sans-serif;
+    font-size: 16px;
+    color: darkslategray;
+}
+
+#profile_menu span {
+    font-weight: bolder;
+    font-size: 18px;
+    color: black;
+}
+
+
 #posts_view {
     display: none;
 }
@@ -50,7 +67,6 @@ button[id^='save-button-'] {
     margin-top: 5px;
 }
 
-div[id^='post-']:first-of-type {
-    background-color: orange;
-    padding-bottom: 100px;
+#create-post {
+    margin-bottom: 20px;
 }
