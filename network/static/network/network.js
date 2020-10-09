@@ -1,6 +1,21 @@
 document.addEventListener('DOMContentLoaded', function() {
-    console.log("Page loaded");
-    // load default index page
+    // clear textarea for new post
+    document.querySelector('#post-body').value = "";
+
+    // enable / disable post button based on user input
+    document.querySelector('#post-body').addEventListener('keyup', function() {
+        console.log(this.value.length);
+        if (this.value.length > 0) {
+            document.querySelector('#submit_post').className = "btn btn-primary";
+            document.querySelector('#submit_post').removeAttribute('disabled');
+        }
+        else {
+            document.querySelector('#submit_post').className = "btn btn-primary";
+            document.querySelector('#submit_post').setAttribute('disabled', true);
+        }
+    });
+
+    // submit new post when clicked on post button
     document.querySelector('#submit_post').addEventListener("click", create_post);
 });
 
