@@ -3,6 +3,22 @@
     padding-top: 10px;
 }
 
+.pagination > li > a
+{
+
+    color: darkslategray;
+}
+
+.pagination > li.active > span
+{
+    color: whitesmoke;
+    background-color: #6c757d   !Important;
+    border: solid 1px #6c757d  !Important;
+}
+
+.pagination > li > a:hover {
+    color: darkslategray;
+}
 
 body {
     padding-bottom: 30px;
@@ -83,3 +99,5 @@ button[id^='save-button-'] {
 #create-post {
     margin-bottom: 20px;
 }
+
+
