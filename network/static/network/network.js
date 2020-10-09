@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+
 // Create new post
 function create_post() {
 body = document.querySelector("#post-body").value;
