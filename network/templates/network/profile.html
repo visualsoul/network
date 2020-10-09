@@ -4,13 +4,13 @@
     <!-- USER PROFILE INFORMATION -->
     {% if user.is_authenticated %}
         {% if user_data %}
-        <h2>{{ user_data.username }}'s Profile</h2>
+        <h2><i class="fa fa-user"></i>&nbsp;{{ user_data.username }}'s Profile</h2>
             <div>
-                <div>Following: <span id="following-count">{{ user_data.following|length }}</span></div>
-                <div>Followers: <span id="followers-count">{{ user_data.followers|length }}</span></div>
+                <div id="profile_menu"><span id="following-count">{{ user_data.following|length }}</span> Following
+                <span id="followers-count">{{ user_data.followers|length }}</span> Followers</div>
                 {% if not user.id == user_data.id %}
                     {% if user.id in user_data.followers %}
-                        <button id="follow-button" class="btn btn-danger">Un-Follow</button>
+                        <button id="follow-button" class="btn btn-danger btn-sm">Un-Follow</button>
                         <script>
                             document.querySelector('#follow-button').addEventListener("click", () => {
 
@@ -20,7 +20,7 @@
 
                         </script>
                     {% else %}
-                        <button id="follow-button" class="btn btn-primary">Follow</button>
+                        <button id="follow-button" class="btn btn-primary btn-sm">Follow</button>
                         <script>
                             document.querySelector('#follow-button').addEventListener("click", () => {
 
@@ -34,7 +34,7 @@
         {% else %}
         <h2>Profile Page</h2>
         {% endif %}
-
+        <hr>
     <!-- END USER PROFILE INFORMATION SECTION -->
 
     <!-- POSTS -->
