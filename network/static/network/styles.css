@@ -6,6 +6,19 @@
 
 body {
     padding-bottom: 30px;
+    background-color: #f0f0f0;
+}
+
+.card a:hover {
+    text-decoration: none;
+    text-decoration-color: orange;
+    font-weight: bolder;
+
+}
+
+.card a {
+    font-family: sans-serif;
+    font-size: 18px;
 }
 
 h2 {

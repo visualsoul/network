@@ -5,11 +5,12 @@
     {% for post in page_obj %}
      <div style="margin-top: 20px;" id="post-{{ post.id }}">
         <div class="card">
-            <div class="card-header">
-                <a style="color: darkslategray;" href="{% url 'profile' post.author.id %}">
-                   <strong>{{ post.author.username }}</strong>
+            <div class="card-header bg-secondary">
+                <a style="color: whitesmoke;" href="{% url 'profile' post.author.id %}">
+                    <i class="fa fa-user"></i>
+                   <span id="username-text">{{ post.author.username }}</span>
                 </a>
-                <small class="text-muted"><em>Posted On</em>: {{ post.timestamp }}</small>
+                <small class="text-muted" style="color: white;"><em>Posted On</em>: {{ post.timestamp }}</small>
             </div>
             <div id="card-body" class="card-body">
                 <textarea style="display: none;" name="post-body" id="post-body-{{ post.id }}"></textarea>

@@ -6,11 +6,9 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('#post-body').addEventListener('keyup', function() {
         console.log(this.value.length);
         if (this.value.length > 0) {
-            document.querySelector('#submit_post').className = "btn btn-primary";
             document.querySelector('#submit_post').removeAttribute('disabled');
         }
         else {
-            document.querySelector('#submit_post').className = "btn btn-primary";
             document.querySelector('#submit_post').setAttribute('disabled', true);
         }
     });
